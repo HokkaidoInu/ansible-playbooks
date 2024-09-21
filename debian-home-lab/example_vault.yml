@@ -1,0 +1,8 @@
+---
+firefly_app_key: your_app_key_here
+firefly_db_host: your_db_host
+firefly_db_port: "3306"
+firefly_db_connection: mysql
+firefly_db_name: firefly
+firefly_db_user: firefly
+firefly_db_password: your_secure_password

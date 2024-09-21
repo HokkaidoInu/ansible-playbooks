@@ -1,0 +1,43 @@
+# Ansible Vault files
+**/vault.yml
+
+# Actual inventory files
+**/inventory.ini
+
+# Ansible retry files
+*.retry
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE/Editor folders
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Python virtual environment
+venv/
+.env
+
+# Ansible roles downloaded from Galaxy
+roles/
+
+# Ignore all .cfg files (often used for Ansible config)
+*.cfg
+# But don't ignore example config files
+!example*.cfg
