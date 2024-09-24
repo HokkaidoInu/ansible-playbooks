@@ -22,10 +22,6 @@
           - python3-pip
         state: present
 
-    - name: Install Docker Python module
-      pip:
-        name: docker
-
     - name: Create Dockge directory
       file:
         path: /opt/dockge
@@ -56,21 +52,21 @@
           - /path/to/jellyfin/cache:/cache
           - /path/to/media:/media
 
-    - name: Deploy Firefly III
-      community.docker.docker_container:
-        name: firefly-iii
-        image: "fireflyiii/core:latest"
-        state: started
-        restart_policy: always
-        ports:
-          - "8080:8080"
-        env:
-          APP_KEY: "{{ firefly_app_key }}"
-          DB_HOST: "{{ firefly_db_host }}"
-          DB_PORT: "{{ firefly_db_port }}"
-          DB_CONNECTION: "{{ firefly_db_connection }}"
-          DB_DATABASE: "{{ firefly_db_name }}"
-          DB_USERNAME: "{{ firefly_db_user }}"
-          DB_PASSWORD: "{{ firefly_db_password }}"
-        volumes:
-          - /path/to/firefly/upload:/var/www/html/storage/upload
+    # - name: Deploy Firefly III
+    #   community.docker.docker_container:
+    #     name: firefly-iii
+    #     image: "fireflyiii/core:latest"
+    #     state: started
+    #     restart_policy: always
+    #     ports:
+    #       - "8080:8080"
+    #     env:
+    #       APP_KEY: "{{ firefly_app_key }}"
+    #       DB_HOST: "{{ firefly_db_host }}"
+    #       DB_PORT: "{{ firefly_db_port }}"
+    #       DB_CONNECTION: "{{ firefly_db_connection }}"
+    #       DB_DATABASE: "{{ firefly_db_name }}"
+    #       DB_USERNAME: "{{ firefly_db_user }}"
+    #       DB_PASSWORD: "{{ firefly_db_password }}"
+    #     volumes:
+    #       - /path/to/firefly/upload:/var/www/html/storage/upload
