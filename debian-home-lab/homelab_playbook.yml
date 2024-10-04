@@ -1,0 +1,44 @@
+---
+- name: Set up Debian Home Lab
+  hosts: debian_server
+  become: true
+  vars:
+    docker_base_path: "/opt/docker"
+    trivy_scan_result_path: "/home/{{ ansible_user }}/trivy_scans"
+    dockge_version: "latest"
+    jellyfin_version: "latest"
+    firefly_version: "latest"
+    trivy_version: "latest"
+    satisfactory_version: "latest"
+    wg_easy_version: "latest"
+  vars_files:
+    - vault.yml
+
+  tasks:
+    - name: Prepare system
+      ansible.builtin.import_tasks: tasks/system_prep.yml
+      tags: [system, always]
+
+    - name: Set up management tools
+      ansible.builtin.import_tasks: tasks/management_tools.yml
+      tags: [management]
+
+    - name: Set up media servers
+      ansible.builtin.import_tasks: tasks/media_servers.yml
+      tags: [media]
+
+    - name: Set up finance tools
+      ansible.builtin.import_tasks: tasks/finance.yml
+      tags: [finance]
+
+    - name: Set up security tools
+      ansible.builtin.import_tasks: tasks/security.yml
+      tags: [security]
+
+    - name: Set up game servers
+      ansible.builtin.import_tasks: tasks/game_servers.yml
+      tags: [games]
+
+    - name: Set up VPN
+      ansible.builtin.import_tasks: tasks/vpn.yml
+      tags: [vpn]

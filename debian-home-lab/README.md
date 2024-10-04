@@ -4,8 +4,73 @@ This is my personal, opinionated Ansible playbook for setting up a Debian home l
 
 ## Prerequisites
 
-- Ansible installed on your control machine
-- A Debian server with SSH access
+### Host System (Arch Linux)
+
+1. Update your Arch Linux system:
+   ```
+   sudo pacman -Syu
+   ```
+
+2. Install Ansible and other required packages:
+   ```
+   sudo pacman -S ansible openssh
+   ```
+
+3. Install `yay` if not already installed:
+   ```
+   git clone https://aur.archlinux.org/yay.git
+   cd yay
+   makepkg -si
+   ```
+
+4. Install additional AUR packages if needed:
+   ```
+   yay -S ansible-lint
+   ```
+
+### Target System (Debian)
+
+1. Update your Debian system:
+   ```
+   sudo apt-get update
+   sudo apt-get upgrade
+   ```
+
+2. Install required packages:
+   ```
+   sudo apt-get install openssh-server python3 python3-pip
+   ```
+
+### SSH Setup
+
+1. Generate an SSH key pair on your Arch Linux host if you haven't already:
+   ```
+   ssh-keygen -t ed25519 -C "debian-homelab"
+   ```
+
+2. Copy your public key to the Debian target system:
+   ```
+   ssh-copy-id your_ssh_user@your_server_ip_or_hostname
+   ```
+
+3. Test the SSH connection:
+   ```
+   ssh your_ssh_user@your_server_ip_or_hostname
+   ```
+
+4. (Optional) Configure SSH key-based authentication only:
+   Edit `/etc/ssh/sshd_config` on the Debian target system and set:
+   ```
+   PasswordAuthentication no
+   ```
+   Then restart the SSH service:
+   ```
+   sudo systemctl restart sshd
+   ```
+
+### Additional Prerequisites
+
+- A Debian server with SSH access configured as above
 - Docker installed on the Debian server (the playbook will install it if not present)
 
 ## Setup

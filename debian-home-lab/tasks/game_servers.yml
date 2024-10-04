@@ -1,0 +1,30 @@
+---
+- name: Deploy Satisfactory Server
+  community.docker.docker_container:
+    name: satisfactory-server
+    image: "wolveix/satisfactory-server:{{ satisfactory_version }}"
+    state: started
+    restart_policy: unless-stopped
+    hostname: satisfactory-server
+    ports:
+      - "7777:7777/udp"
+      - "7777:7777/tcp"
+    volumes:
+      - "{{ docker_base_path }}/satisfactory/config:/config"
+    env:
+      MAXPLAYERS: "4"
+      PGID: "1000"
+      PUID: "1000"
+      ROOTLESS: "false"
+      STEAMBETA: "false"
+    healthcheck:
+      test: ["CMD-SHELL", "bash /healthcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+    memory: "6g"
+    memory_reservation: "4g"
+  tags:
+    - games
+    - satisfactory

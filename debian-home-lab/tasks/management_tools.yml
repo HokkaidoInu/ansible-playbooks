@@ -1,0 +1,16 @@
+---
+- name: Deploy Dockge
+  community.docker.docker_container:
+    name: dockge
+    image: "louislam/dockge:{{ dockge_version }}"
+    state: started
+    restart_policy: unless-stopped
+    ports:
+      - "5001:5001"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "{{ docker_base_path }}/dockge/data:/app/data"
+      - "/opt/stacks:/opt/stacks"
+  tags:
+    - management
+    - dockge

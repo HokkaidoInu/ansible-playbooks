@@ -1,0 +1,24 @@
+---
+- name: Get list of running containers
+  community.docker.docker_host_info:
+    containers: true
+  register: docker_info
+  changed_when: false
+
+- name: Scan Docker containers with Trivy
+  community.docker.docker_container:
+    name: trivy_scan_{{ item.Id | truncate(10, True, '') }}
+    image: aquasec/trivy
+    state: started
+    command: "image {{ item.Image }}"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  loop: "{{ docker_info.containers }}"
+  register: trivy_results
+
+- name: Save Trivy scan results
+  ansible.builtin.copy:
+    mode: "0755"
+    content: "{{ trivy_results | to_nice_yaml }}"
+    dest: "{{ trivy_scan_result_path }}/trivy_scan_{{ ansible_date_time.iso8601 }}.yaml"
+  when: trivy_results.results | length > 0

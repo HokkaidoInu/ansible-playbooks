@@ -1,0 +1,16 @@
+---
+- name: Deploy Jellyfin
+  community.docker.docker_container:
+    name: jellyfin
+    image: "jellyfin/jellyfin:{{ jellyfin_version }}"
+    state: started
+    restart_policy: unless-stopped
+    ports:
+      - "8096:8096"
+    volumes:
+      - "{{ docker_base_path }}/jellyfin/config:/config"
+      - "{{ docker_base_path }}/jellyfin/cache:/cache"
+      - "{{ docker_base_path }}/jellyfin/media:/media"
+  tags:
+    - media
+    - jellyfin
