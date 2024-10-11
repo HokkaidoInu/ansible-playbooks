@@ -1,7 +1,7 @@
 ---
 - name: Update and upgrade apt packages
   ansible.builtin.apt:
-    upgrade: true
+    upgrade: "yes"
     update_cache: true
   tags:
     - system

@@ -16,6 +16,12 @@
   loop: "{{ docker_info.containers }}"
   register: trivy_results
 
+- name: Ensure Trivy scan results directory exists
+  ansible.builtin.file:
+    path: "{{ trivy_scan_result_path }}"
+    state: directory
+    mode: '0755'
+
 - name: Save Trivy scan results
   ansible.builtin.copy:
     mode: "0755"

@@ -100,7 +100,8 @@ This is my personal, opinionated Ansible playbook for setting up a Debian home l
 To run the playbook:
 
 ```
-ansible-playbook -i inventory.ini homelab_playbook.yml --ask-vault-pass
+<!-- ansible-playbook -i inventory.ini homelab_playbook.yml --ask-vault-pass -->
+ansible-playbook -i inventory.ini homelab_playbook.yml -kK
 ```
 
 This will prompt you for the vault password and then run the playbook.

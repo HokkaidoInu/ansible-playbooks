@@ -9,8 +9,8 @@
       - NET_ADMIN
       - SYS_MODULE
     env:
-      - WG_HOST={{ wireguard_host }}
-      - PASSWORD={{ wireguard_password }}
+      WG_HOST: "{{ wireguard_host }}"
+      PASSWORD_HASH: "{{ wireguard_password }}"
     ports:
       - "51820:51820/udp"
       - "51821:51821/tcp"
