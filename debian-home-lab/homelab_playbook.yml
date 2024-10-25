@@ -22,10 +22,10 @@
       ansible.builtin.import_tasks: tasks/security.yml
       tags: [security]
 
-    - name: Set up game servers
-      ansible.builtin.import_tasks: tasks/game_servers.yml
-      tags: [games]
-
     - name: Set up VPN
       ansible.builtin.import_tasks: tasks/vpn.yml
       tags: [vpn]
+
+    - name: Set up torrent client
+      ansible.builtin.import_tasks: tasks/torrent_client.yml
+      tags: [torrent]

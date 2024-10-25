@@ -1,6 +1,6 @@
 # My Debian Home Lab Ansible Playbook
 
-This is my personal, opinionated Ansible playbook for setting up a Debian home lab with Dockge, Jellyfin, and Firefly III. Feel free to use it as inspiration for your own setup, but please note that this playbook is tailored to my specific needs and preferences.
+This is my personal, opinionated Ansible playbook for setting up a Debian home lab with WireGuard, WireGuard Easy, qbittorrent, Jellyfin,  Firefly III and Trivy. Feel free to use it as inspiration for your own setup, but please note that this playbook is tailored to my specific needs and preferences.
 
 ## Prerequisites
 

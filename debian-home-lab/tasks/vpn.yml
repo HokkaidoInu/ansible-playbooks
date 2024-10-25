@@ -1,8 +1,9 @@
 ---
+# WireGuard server
 - name: Deploy WireGuard Easy
   community.docker.docker_container:
     name: wg-easy
-    image: "weejewel/wg-easy:{{ wg_easy_version }}"
+    image: "ghcr.io/wg-easy/wg-easy:{{ wg_easy_version }}"
     state: started
     restart_policy: unless-stopped
     capabilities:
@@ -19,6 +20,31 @@
       "net.ipv4.conf.all.src_valid_mark": "1"
     volumes:
       - "{{ docker_base_path }}/wireguard/config:/etc/wireguard"
+  tags:
+    - vpn
+    - wg-easy
+
+# WireGuard client
+- name: Deploy WireGuard
+  community.docker.docker_container:
+    name: wireguard
+    image: "linuxserver/wireguard:{{ wireguard_version }}"
+    state: started
+    restart_policy: unless-stopped
+    capabilities:
+      - NET_ADMIN
+      - SYS_MODULE
+    env:
+      PUID: "{{ puid }}"
+      PGID: "{{ pgid }}"
+      TZ: "{{ timezone }}"
+    ports:
+      - "51822:51820/udp"
+    sysctls:
+      "net.ipv4.conf.all.src_valid_mark": "1"
+    volumes:
+      - "{{ docker_base_path }}/wireguard/config:/config"
+      - "/lib/modules:/lib/modules:ro"
   tags:
     - vpn
     - wireguard

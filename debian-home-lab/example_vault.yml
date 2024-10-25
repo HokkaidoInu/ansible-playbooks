@@ -1,15 +1,20 @@
 ---
+# Main variables
+timezone: "Europe/London"
+
 # Version variables (latest or a specific version number)
-dockge_version: "latest"
 firefly_version: "latest"
 jellyfin_version: "latest"
 mariadb_version: "latest"
-satisfactory_version: "latest"
+qbittorrent_version: "latest"
 trivy_version: "latest"
 wg_easy_version: "latest"
+wireguard_version: "latest"
 
 # Docker variables
 docker_base_path: "/opt/docker"
+puid: "user id e.g. 1000 https://docs.linuxserver.io/general/understanding-puid-and-pgid"
+pgid: "user id e.g. 1000 https://docs.linuxserver.io/general/understanding-puid-and-pgid"
 
 # Trivy variables
 trivy_scan_result_path: "/home/{{ ansible_user }}/trivy_scans"
@@ -19,7 +24,7 @@ mariadb_root_password: "your_secure_root_password"
 firefly_db_name: "firefly"
 firefly_db_user: "firefly_user"
 firefly_db_password: "your_secure_db_password"
-firefly_app_key: "your_32_character_app_key" # generate using "openssl rand -base64 32"
+firefly_app_key: "your_32_character_app_key" # generate using "head /dev/urandom | LC_ALL=C tr -dc 'A-Za-z0-9' | head -c 32 && echo"
 
 # WireGuard variables
 wireguard_host: your.domain.com
